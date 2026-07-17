@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "equity-snapshot-mcp"
+version = "0.1.0"
+description = "Equity snapshot MCP package"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Your Name" }]
+license = { text = "MIT" }
+dependencies = []
+
+[tool.setuptools]
+packages = ["equity_snapshot"]
+
+[tool.setuptools.package-dir]
+"" = "src"
