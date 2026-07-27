@@ -20,19 +20,14 @@ def compare_stocks(tickers: list[str]) -> StockComparison:
         raise ValueError("At least two tickers are required for comparison.")
 
     if len(tickers) > MAX_COMPARISON_TICKERS:
-        raise ValueError(
-            f"A maximum of {MAX_COMPARISON_TICKERS} tickers may be compared."
-        )
+        raise ValueError(f"A maximum of {MAX_COMPARISON_TICKERS} tickers may be compared.")
 
     normalized_tickers = [normalize_ticker(ticker) for ticker in tickers]
 
     if len(set(normalized_tickers)) != len(normalized_tickers):
         raise ValueError("Duplicate tickers are not allowed.")
 
-    snapshots = [
-        get_financial_snapshot(ticker)
-        for ticker in normalized_tickers
-    ]
+    snapshots = [get_financial_snapshot(ticker) for ticker in normalized_tickers]
 
     companies = [
         StockComparisonItem(
@@ -100,11 +95,7 @@ def _add_highest_observation(
     label: str,
     observations: list[str],
 ) -> None:
-    available = [
-        company
-        for company in companies
-        if getattr(company, field_name) is not None
-    ]
+    available = [company for company in companies if getattr(company, field_name) is not None]
 
     if not available:
         return
@@ -114,9 +105,7 @@ def _add_highest_observation(
         key=lambda company: getattr(company, field_name),
     )
 
-    observations.append(
-        f"{highest.ticker} has the highest {label} among the compared stocks."
-    )
+    observations.append(f"{highest.ticker} has the highest {label} among the compared stocks.")
 
 
 def _add_lowest_observation(
@@ -125,11 +114,7 @@ def _add_lowest_observation(
     label: str,
     observations: list[str],
 ) -> None:
-    available = [
-        company
-        for company in companies
-        if getattr(company, field_name) is not None
-    ]
+    available = [company for company in companies if getattr(company, field_name) is not None]
 
     if not available:
         return
@@ -139,9 +124,9 @@ def _add_lowest_observation(
         key=lambda company: getattr(company, field_name),
     )
 
-    observations.append(
-        f"{lowest.ticker} has the lowest {label} among the compared stocks."
-    )
+    observations.append(f"{lowest.ticker} has the lowest {label} among the compared stocks.")
+
+
 def get_research_summary(ticker: str) -> ResearchSummary:
     """Build simple evidence-based observations for a stock."""
 
@@ -180,9 +165,7 @@ def get_research_summary(ticker: str) -> ResearchSummary:
             neutral_observations.append("Cash and total debt are approximately equal.")
 
     if snapshot.trailing_pe is not None:
-        neutral_observations.append(
-            f"The trailing P/E ratio is {snapshot.trailing_pe:.2f}."
-        )
+        neutral_observations.append(f"The trailing P/E ratio is {snapshot.trailing_pe:.2f}.")
 
     warnings.extend(snapshot.warnings)
 

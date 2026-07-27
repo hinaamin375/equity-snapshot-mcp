@@ -32,3 +32,6 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+
+[project.scripts]
+equity-snapshot-mcp = "equity_snapshot.server:mcp.run"

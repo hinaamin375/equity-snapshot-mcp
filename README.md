@@ -1,32 +1,36 @@
-# EquitySnapshot MCP
+## MCP tools
 
-A minimal stock-research MCP server that gives AI assistants access to
-normalized company profiles and fundamental financial snapshots.
+### `get_company_profile`
 
-## Current status
+Returns:
 
-Day 1: data-provider layer implemented.
+- Company name
+- Exchange
+- Sector
+- Industry
+- Market capitalization
+- Business description
 
-## Planned MCP tools
+### `get_financial_snapshot`
 
-- `get_company_profile`
-- `get_financial_snapshot`
-- `compare_stocks`
-- `get_research_summary`
+Returns:
 
-## Technology
+- Revenue
+- Revenue growth
+- Net income
+- Profit margin
+- Free cash flow
+- Cash
+- Total debt
+- Trailing P/E ratio
 
-- Python
-- Pydantic
-- yfinance
-- FastMCP
-- pytest
+### `compare_stocks`
 
-## Development setup
+Compares two to five tickers using normalized fundamental metrics.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
-pytest
-python scripts/try_snapshot.py AAPL
+Example input:
+
+```json
+{
+  "tickers": ["AAPL", "MSFT"]
+}

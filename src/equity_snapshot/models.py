@@ -39,6 +39,7 @@ class FinancialSnapshot(BaseModel):
     source: DataSource
     warnings: list[str] = Field(default_factory=list)
 
+
 from pydantic import BaseModel, Field
 
 
@@ -65,6 +66,4 @@ class ResearchSummary(BaseModel):
     strengths: list[str] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
     neutral_observations: list[str] = Field(default_factory=list)
-    disclaimer: str = (
-        "This output is for educational purposes and is not financial advice."
-    )
+    disclaimer: str = "This output is for educational purposes and is not financial advice."
