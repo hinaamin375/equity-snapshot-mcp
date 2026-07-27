@@ -38,3 +38,33 @@ class FinancialSnapshot(BaseModel):
 
     source: DataSource
     warnings: list[str] = Field(default_factory=list)
+
+from pydantic import BaseModel, Field
+
+
+class StockComparisonItem(BaseModel):
+    ticker: str
+    company_name: str | None = None
+    revenue_growth: float | None = None
+    profit_margin: float | None = None
+    free_cash_flow: float | None = None
+    cash: float | None = None
+    total_debt: float | None = None
+    trailing_pe: float | None = None
+    warnings: list[str] = Field(default_factory=list)
+
+
+class StockComparison(BaseModel):
+    tickers: list[str]
+    companies: list[StockComparisonItem]
+    observations: list[str] = Field(default_factory=list)
+
+
+class ResearchSummary(BaseModel):
+    ticker: str
+    strengths: list[str] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+    neutral_observations: list[str] = Field(default_factory=list)
+    disclaimer: str = (
+        "This output is for educational purposes and is not financial advice."
+    )
