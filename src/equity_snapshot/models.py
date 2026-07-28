@@ -67,3 +67,8 @@ class ResearchSummary(BaseModel):
     warnings: list[str] = Field(default_factory=list)
     neutral_observations: list[str] = Field(default_factory=list)
     disclaimer: str = "This output is for educational purposes and is not financial advice."
+
+class ErrorResponse(BaseModel):
+    error: str
+    message: str
+    ticker: str | None = None

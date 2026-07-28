@@ -26,7 +26,12 @@ mcp = FastMCP(
 
 @mcp.tool
 def get_company_profile(ticker: str) -> dict:
-    """Get basic company information for a stock ticker."""
+    """
+    Retrieve basic public-company information for one stock ticker.
+
+    Use this tool for company name, sector, industry, exchange,
+    market capitalization, currency, and business description.
+    """
 
     result = provider_get_company_profile(ticker)
     return result.model_dump(mode="json")
@@ -34,24 +39,37 @@ def get_company_profile(ticker: str) -> dict:
 
 @mcp.tool
 def get_financial_snapshot(ticker: str) -> dict:
-    """Get a fundamental financial snapshot for a stock ticker."""
+    """
+    Retrieve a normalized fundamental snapshot for one stock ticker.
 
+    Returns revenue, growth, profit margin, cash, debt,
+    free cash flow, and trailing P/E when available.
+    """
     result = provider_get_financial_snapshot(ticker)
     return result.model_dump(mode="json")
 
 
 @mcp.tool
 def compare_stocks(tickers: list[str]) -> dict:
-    """Compare the fundamentals of two to five stock tickers."""
+    """
+    Compare two to five public-company tickers using the same
+    normalized fundamental metrics.
 
+    Use this tool when the user asks which company has higher
+    growth, profitability, free cash flow, or a lower trailing P/E.
+    """
     result = service_compare_stocks(tickers)
     return result.model_dump(mode="json")
 
 
 @mcp.tool
 def get_research_summary(ticker: str) -> dict:
-    """Return evidence-based strengths and warning signs for a stock."""
+    """
+    Produce deterministic, evidence-based strengths, warnings,
+    and neutral observations for one stock.
 
+    This tool does not provide buy or sell recommendations.
+    """
     result = service_get_research_summary(ticker)
     return result.model_dump(mode="json")
 

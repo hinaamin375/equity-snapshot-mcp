@@ -1,36 +1,107 @@
-## MCP tools
+# Equity Snapshot MCP
 
-### `get_company_profile`
+Equity Snapshot MCP is a lightweight Model Context Protocol (MCP) server for retrieving public-company fundamentals and comparing stocks. It exposes a small set of tools that return normalized financial data from Yahoo Finance via the `yfinance` package.
 
-Returns:
+## Features
 
-- Company name
-- Exchange
-- Sector
-- Industry
-- Market capitalization
-- Business description
+The server currently provides four MCP tools:
 
-### `get_financial_snapshot`
+- `get_company_profile`: returns basic company metadata such as company name, exchange, sector, industry, market capitalization, currency, and business description.
+- `get_financial_snapshot`: returns a normalized financial snapshot with metrics such as revenue, revenue growth, net income, profit margin, free cash flow, cash, total debt, and trailing P/E ratio.
+- `compare_stocks`: compares two to five tickers and highlights simple relative observations about profitability, growth, cash flow, and valuation.
+- `get_research_summary`: produces a deterministic, evidence-based summary of strengths, warnings, and neutral observations for a single ticker.
 
-Returns:
+## Installation
 
-- Revenue
-- Revenue growth
-- Net income
-- Profit margin
-- Free cash flow
-- Cash
-- Total debt
-- Trailing P/E ratio
+Requirements:
 
-### `compare_stocks`
+- Python 3.11 or newer
 
-Compares two to five tickers using normalized fundamental metrics.
+Install from the repository root:
 
-Example input:
+```bash
+pip install -e .
+```
+
+To install development dependencies as well:
+
+```bash
+pip install -e .[dev]
+```
+
+## Running the server
+
+From the repository root, run:
+
+```bash
+python -m equity_snapshot.server
+```
+
+If you installed the package in editable mode, the console script is also available:
+
+```bash
+equity-snapshot-mcp
+```
+
+## Example tool usage
+
+### Get a company profile
 
 ```json
 {
-  "tickers": ["AAPL", "MSFT"]
+  "ticker": "AAPL"
 }
+```
+
+### Get a financial snapshot
+
+```json
+{
+  "ticker": "MSFT"
+}
+```
+
+### Compare two or more stocks
+
+```json
+{
+  "tickers": ["AAPL", "MSFT", "NVDA"]
+}
+```
+
+### Get a research summary
+
+```json
+{
+  "ticker": "TSLA"
+}
+```
+
+## Development
+
+Run the test suite:
+
+```bash
+pytest
+```
+
+Run integration tests that call live external services:
+
+```bash
+pytest -m integration
+```
+
+Lint the project:
+
+```bash
+ruff check .
+```
+
+## Notes
+
+- Data is sourced from Yahoo Finance and may be delayed or incomplete depending on the provider response.
+- The tool outputs are intended for educational and research purposes only and should not be treated as financial advice.
+
+## License
+
+This project is licensed under the MIT License.
